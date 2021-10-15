@@ -3,20 +3,20 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const api = require('./routes')
-
+//Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api',api);
 app.use(express.static('public'));
-
+//GET Route for homepage
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
-
+//GET Route for notes
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
-
+//Wildcard route to direct users to the index page
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
