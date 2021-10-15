@@ -10,6 +10,23 @@ notes.get('/', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
+notes.delete('/:id', (req, res) => {
+    const notesId = req.params.id;
+    readFromFile('./db/db.json')
+      .then((data) => JSON.parse(data))
+      .then((json) => {
+        // Make a new array of all tips except the one with the ID provided in the URL
+        const result = json.filter((notes) => notes.id !== notesId);
+  
+        // Save that array to the filesystem
+        writeToFile('./db/db.json', result);
+  
+        // Respond to the DELETE request
+        res.json(`Item ${notesId} has been deleted 🗑️`);
+      });
+  });
+  
+
 notes.post('/', (req, res) => {
     console.log(req.body);
   
@@ -22,12 +39,12 @@ notes.post('/', (req, res) => {
         id: uuidv4(),
       };
   
-      readAndAppend(newTip, './db/notes.json');
+      readAndAppend(newNotes, './db/db.json');
       res.json(`Notes added successfully 🚀`);
     } else {
-      res.error('Error in adding tip');
+      res.error('Error in adding notes');
     }
   });
   
-  module.exports = notes;
+  module.exports = notes
   
