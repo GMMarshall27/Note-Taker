@@ -1,6 +1,7 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const PORT = process.env.port || 3001;
+const PORT = process.env.PORT || 3001;
 const api = require('./routes')
 
 app.use(express.json());
@@ -17,7 +18,7 @@ app.get('/notes', (req, res) =>
 );
 
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.htnml'))
+  res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
 app.listen(PORT, () =>

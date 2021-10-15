@@ -46,5 +46,5 @@ notes.post('/', (req, res) => {
     }
   });
   
-  module.exports = notes
+  module.exports = notes;
   
